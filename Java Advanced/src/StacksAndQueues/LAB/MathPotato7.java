@@ -1,0 +1,53 @@
+package StacksAndQueues.LAB;
+
+import java.util.ArrayDeque;
+import java.util.Scanner;
+
+public class MathPotato7 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String[] name = scanner.nextLine().split("\\s+");
+        int count = Integer.parseInt(scanner.nextLine());
+
+        ArrayDeque<String> children = new ArrayDeque<>();
+
+        for (String s : name) {
+            children.offer(s);
+        }
+        int number = 1;
+        while (children.size() > 1) {
+
+            for (int i = 1; i < count; i++) {
+                String remove = children.poll();
+                children.offer(remove);
+            }
+          /*  if (number == 1 || number > 2 && (number % 4 == 0 || number % 6 == 0 || number % 9 == 0 || number % 10 == 0 || number % 14 == 0)) {
+                System.out.printf("Removed %s%n", children.poll());
+            } else {
+                System.out.printf("Prime %s%n", children.peek());
+            }*/
+            boolean isPrime = isPrime(number);
+            if (isPrime){
+                System.out.printf("Prime %s%n", children.peek());
+            }else if (number==1){
+                System.out.printf("Removed %s%n", children.poll());
+            }else {
+                System.out.printf("Removed %s%n", children.poll());
+            }
+            number++;
+        }
+        System.out.println("Last is " + children.poll());
+    }
+
+    private static boolean isPrime(int number) {
+        if (number == 1){
+            return false;
+        }
+        for (int i = 2; i*i <=number ; i++) {
+            if (number%i==0){
+                return false;
+            }
+        }
+        return true;
+    }
+}
